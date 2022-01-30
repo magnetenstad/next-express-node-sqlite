@@ -1,5 +1,5 @@
 
-# Demo for a webapp with the React - Express - Node - SQLite stack
+# Demo for a webapp with the Next.js (React) - Express (Node) - SQLite stack
 
 ## Steps to reproduce (~ 20 min)
 1. Install Node.js from https://nodejs.org/en/ if you don't already have it installed.
