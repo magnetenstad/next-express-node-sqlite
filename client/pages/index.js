@@ -1,27 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
-import { useEffect, useState } from "react";
+import Head from 'next/head'
+import styles from '../styles/Home.module.css'
+import { useEffect, useState } from 'react';
 
-function App() {
+export default function Home() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className={styles.container}>
+      <Head>
+        <title>Create Next App</title>
+      </Head>
+
+      <main className={styles.main}>
+        <h1 className={styles.title}>
+          Welcome to <a href="https://nextjs.org">Next.js!</a>
+        </h1>
+
         {NumbersComponent()}
-      </header>
+      </main>
     </div>
-  );
+  )
 }
 
 function NumbersComponent() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [numbers, setNumbers] = useState([]);
-  
+
   const getNumbers = async () => {
     setIsLoaded(false);
     fetch('/api/get')
-      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        return res.json();
+      })
       .then(
         (result) => {
           setIsLoaded(true);
@@ -42,17 +52,18 @@ function NumbersComponent() {
 
   useEffect(() => getNumbers(), [])
 
+  let liKey = 0;
   if (error) {
-    return <div>Error: {error.message} {numbers}</div>;
+    return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
     return (
-      <div>
+      <div>    
       <ul>
         <p>Numbers:</p>
         {numbers.map(number => (
-          <li>
+          <li key={liKey++}>
             {number.number}
           </li>
         ))}
@@ -63,5 +74,3 @@ function NumbersComponent() {
     );
   }
 }
-
-export default App;

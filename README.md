@@ -113,38 +113,66 @@ app.listen(PORT, () => {
     - `../clear` deletes all numbers in the database
 If they all show relevant messages, your database is working! 
 
-### Create a React frontend
-16. Initialize React `npx create-react-app client`
-   - `client` will be the name of the created folder and React project
-17. Add `"proxy": "http://localhost:3001"` to `client/package.json`
-   - To communicate with the server, running on port `3001`
-18. Add `"client": "cd client && npm start"` to `scripts` in `package.json` (in the root folder, not in `client/`!)
-19. Replace the contents of `client/src/App.js` with the following:
+### Create a React frontend with Next.js
+16. Initialize Next `npx create-next-app client`
+   - `client` will be the name of the created folder and Next.js project
+17. Add the following to `module.exports` in `next.config.js`:
 ```js
-import logo from './logo.svg';
-import './App.css';
-import { useEffect, useState } from "react";
+async rewrites() {
+  return [
+    {
+      source: '/api/:path*',
+      destination: 'http://localhost:3001/api/:path*' // Proxy to Backend
+    }
+  ]
+}
+```
+   - To communicate with the server, running on port `3001`
+18. Add `"client": "cd client && npm run dev"` to `scripts` in `package.json` (in the root folder, not in `client/`!)
+19. Create the following file:
+    - To prevent changes to the client and readme to hot reload the server.
+```json
+// nodemon.json
+{   
+  "ignore": ["client/**", "README.md"] 
+}
+```
+20. Replace the contents of `client/pages/index.js` with the following:
+```js
+import Head from 'next/head'
+import styles from '../styles/Home.module.css'
+import { useEffect, useState } from 'react';
 
-function App() {
+export default function Home() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className={styles.container}>
+      <Head>
+        <title>Create Next App</title>
+      </Head>
+
+      <main className={styles.main}>
+        <h1 className={styles.title}>
+          Welcome to <a href="https://nextjs.org">Next.js!</a>
+        </h1>
+
         {NumbersComponent()}
-      </header>
+      </main>
     </div>
-  );
+  )
 }
 
 function NumbersComponent() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [numbers, setNumbers] = useState([]);
-  
+
   const getNumbers = async () => {
     setIsLoaded(false);
     fetch('/api/get')
-      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        return res.json();
+      })
       .then(
         (result) => {
           setIsLoaded(true);
@@ -165,17 +193,18 @@ function NumbersComponent() {
 
   useEffect(() => getNumbers(), [])
 
+  let liKey = 0;
   if (error) {
-    return <div>Error: {error.message} {numbers}</div>;
+    return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
     return (
-      <div>
+      <div>    
       <ul>
         <p>Numbers:</p>
         {numbers.map(number => (
-          <li>
+          <li key={liKey++}>
             {number.number}
           </li>
         ))}
@@ -186,9 +215,7 @@ function NumbersComponent() {
     );
   }
 }
-
-export default App;
 ```
 20. Start the server `npm run server`
 21. Open **another terminal** and start the client `npm run client`
-22. Open `localhost:3000` in a browser. If insert and clear buttons are displayed, and numbers are updating when buttons are pressed, you have successfully created a webapp with the React - Express - Node - SQLite stack!
+22. Open `localhost:3000` in a browser. If insert and clear buttons are displayed, and numbers are updating when buttons are pressed, you have successfully created a webapp with the Next.js - Express - SQLite stack!
