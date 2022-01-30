@@ -169,10 +169,7 @@ function NumbersComponent() {
   const getNumbers = async () => {
     setIsLoaded(false);
     fetch('/api/get', {method: 'GET'})
-      .then(res => {
-        console.log(res);
-        return res.json();
-      })
+      .then(res => res.json())
       .then(
         (result) => {
           setIsLoaded(true);
