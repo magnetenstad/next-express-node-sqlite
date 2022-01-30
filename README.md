@@ -91,13 +91,13 @@ app.get('/api/get', async (request, result) => {
   result.send(JSON.stringify(await db.getNumbers()));
 })
 
-app.get('/api/insert', (request, result) => {
+app.put('/api/insert', (request, result) => {
   let number = Math.floor(Math.random() * 100)
   db.insertNumber(number);
   result.send(JSON.stringify({"message": "Inserted " + number}));
 })
 
-app.get('/api/clear', (request, result) => {
+app.delete('/api/clear', (request, result) => {
   db.clearNumbers();
   result.send(JSON.stringify({"message": "Cleared numbers!"}));
 })
@@ -168,7 +168,7 @@ function NumbersComponent() {
 
   const getNumbers = async () => {
     setIsLoaded(false);
-    fetch('/api/get')
+    fetch('/api/get', {method: 'GET'})
       .then(res => {
         console.log(res);
         return res.json();
@@ -185,10 +185,12 @@ function NumbersComponent() {
       );
   }
   const insertNumber = () => {
-    fetch('/api/insert').then(() => getNumbers())
+    fetch('/api/insert', {method: 'PUT'})
+      .then(() => getNumbers())
   }
   const clearNumbers = () => {
-    fetch('/api/clear').then(() => getNumbers())
+    fetch('/api/clear', {method: 'DELETE'})
+      .then(() => getNumbers())
   }
 
   useEffect(() => getNumbers(), [])
