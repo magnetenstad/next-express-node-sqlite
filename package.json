@@ -7,7 +7,7 @@
   "scripts": {
     "server": "nodemon node server/index.js",
     "client": "cd client && npm run dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:client": "cd client && npm test"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,8 @@
   "dependencies": {
     "express": "^4.17.2",
     "sqlite": "^4.0.23",
-    "sqlite3": "^4.2.0"
+    "sqlite3": "^4.2.0",
+    "start-server-and-test": "^1.14.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

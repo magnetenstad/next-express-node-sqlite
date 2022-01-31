@@ -5,6 +5,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "npm run build && start-test 3000 cy:run",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
     "lint": "next lint"
   },
   "dependencies": {
@@ -13,6 +16,7 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "cypress": "^9.3.1",
     "eslint": "8.8.0",
     "eslint-config-next": "12.0.9"
   }

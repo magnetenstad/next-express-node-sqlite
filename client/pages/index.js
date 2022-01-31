@@ -55,20 +55,20 @@ function NumbersComponent() {
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
-    return <div>Loading...</div>;
+    return <p>Loading...</p>;
   } else {
     return (
       <div>    
-      <ul>
-        <p>Numbers:</p>
-        {numbers.map(number => (
-          <li key={liKey++}>
-            {number.number}
-          </li>
-        ))}
-      </ul>
-      <button onClick={insertNumber}>Insert number</button>
-      <button onClick={clearNumbers}>Clear numbers</button>
+        <ul>
+          <h1>Numbers:</h1>
+          {numbers.map(number => (
+            <li key={liKey++}>
+              {number.number}
+            </li>
+          ))}
+        </ul>
+        <button onClick={insertNumber}>Insert number</button>
+        <button onClick={clearNumbers}>Clear numbers</button>
       </div>
     );
   }
