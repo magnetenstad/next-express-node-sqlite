@@ -6,7 +6,7 @@
   "scripts": {
     "server": "cd server && npm ",
     "client": "cd client && npm ",
-    "install": "npm i && cd server && npm i && cd ../client && npm i"
+    "install": "cd server && npm i && cd ../client && npm i"
   },
   "repository": {
     "type": "git",
