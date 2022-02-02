@@ -1,31 +1,21 @@
 {
-  "name": "react-express-node-mysql",
+  "name": "next-express-sqlite",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "server": "nodemon node server/index.js",
-    "client": "cd client && npm run dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "cd server && npm ",
+    "client": "cd client && npm "
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/magnetenstad/react-express-node-mysql.git"
+    "url": "git+https://github.com/magnetenstad/nextjs-express-node-sqlite.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/magnetenstad/react-express-node-mysql/issues"
+    "url": "https://github.com/magnetenstad/nextjs-express-node-sqlite/issues"
   },
-  "homepage": "https://github.com/magnetenstad/react-express-node-mysql#readme",
-  "dependencies": {
-    "express": "^4.17.2",
-    "sqlite": "^4.0.23",
-    "sqlite3": "^4.2.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  }
+  "homepage": "https://github.com/magnetenstad/nextjs-express-node-sqlite#readme"
 }

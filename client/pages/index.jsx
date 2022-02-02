@@ -1,6 +1,6 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import { useEffect, useState } from 'react';
+import Head from 'next/head';
+import styles from '../styles/Home.module.css';
+import {useEffect, useState} from 'react';
 
 export default function Home() {
   return (
@@ -10,14 +10,14 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
+        <h1 className ={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
         {NumbersComponent()}
       </main>
     </div>
-  )
+  );
 }
 
 function NumbersComponent() {
@@ -28,28 +28,28 @@ function NumbersComponent() {
   const getNumbers = async () => {
     setIsLoaded(false);
     fetch('/api/get', {method: 'GET'})
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setIsLoaded(true);
-          setNumbers(result);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      );
-  }
+        .then((res) => res.json())
+        .then(
+            (result) => {
+              setIsLoaded(true);
+              setNumbers(result);
+            },
+            (error) => {
+              setIsLoaded(true);
+              setError(error);
+            },
+        );
+  };
   const insertNumber = () => {
     fetch('/api/insert', {method: 'PUT'})
-      .then(() => getNumbers())
-  }
+        .then(() => getNumbers());
+  };
   const clearNumbers = () => {
     fetch('/api/clear', {method: 'DELETE'})
-      .then(() => getNumbers())
-  }
+        .then(() => getNumbers());
+  };
 
-  useEffect(() => getNumbers(), [])
+  useEffect(() => getNumbers(), []);
 
   let liKey = 0;
   if (error) {
@@ -58,17 +58,17 @@ function NumbersComponent() {
     return <div>Loading...</div>;
   } else {
     return (
-      <div>    
-      <ul>
-        <p>Numbers:</p>
-        {numbers.map(number => (
-          <li key={liKey++}>
-            {number.number}
-          </li>
-        ))}
-      </ul>
-      <button onClick={insertNumber}>Insert number</button>
-      <button onClick={clearNumbers}>Clear numbers</button>
+      <div>
+        <ul>
+          <p>Numbers:</p>
+          {numbers.map((number) => (
+            <li key={liKey++}>
+              {number.number}
+            </li>
+          ))}
+        </ul>
+        <button onClick={insertNumber}>Insert number</button>
+        <button onClick={clearNumbers}>Clear numbers</button>
       </div>
     );
   }
